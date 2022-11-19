@@ -21,10 +21,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/user-dashboard', function () {
+    return view('Dashboard');
+})->name('user-dashboard');
+Route::get('/user-material-request-form', [App\Http\Controllers\ProjectListController::class, 'index'] )->name('user-material-request-form');
