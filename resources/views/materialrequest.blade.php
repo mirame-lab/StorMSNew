@@ -5,18 +5,18 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span>Material Request</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span>District Store Requestion</h4>
+        <form>
+            <!-- Basic Layout -->
+            <div class="row">
+                <div class="col-xl">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Basic Information</h5>
+                            <small class="text-muted float-end">tarikh</small>
+                        </div>
+                        <div class="card-body">
 
-        <!-- Basic Layout -->
-        <div class="row">
-            <div class="col-xl">
-                <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Basic Information</h5>
-                        <small class="text-muted float-end">tarikh</small>
-                    </div>
-                    <div class="card-body">
-                        <form>
                             <div class="mb-3">
                                 <label class="form-label" for="name">Nama</label>
                                 <input type="text" class="form-control" id="name" value="{{Auth::user()->name}}"
@@ -40,19 +40,19 @@
                                     placeholder="Aiman/Hafidz" readonly />
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Send</button>
-                        </form>
+
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl">
-                <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Material Information</h5>
+                <div class="col-xl">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Material Information</h5>
 
-                    </div>
-                    <div class="card-body">
-                        <form>
+                        </div>
+                        <div class="card-body">
+
                             <div class="mb-3">
                                 <label class="form-label" for="basic-icon-default-fullname">Project</label>
                                 <div class="input-group input-group-merge">
@@ -63,61 +63,66 @@
                                     <datalist id="projectlist">
                                         @foreach($projectlist as $projectlist)
                                         <option value="{{$projectlist->project_id}} | {{$projectlist->project_name}}">
-                                        @endforeach
-                                        
+                                            @endforeach
+
                                     </datalist>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-company">Company</label>
-                                <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-company2" class="input-group-text"><i
-                                            class="bx bx-buildings"></i></span>
-                                    <input type="text" id="basic-icon-default-company" class="form-control"
-                                        placeholder="ACME Inc." aria-label="ACME Inc."
-                                        aria-describedby="basic-icon-default-company2" />
+                                <label class="form-label" for="basic-icon-default-fullname">Item List</label>
+
+                                <div class="demo-inline-spacing ">
+
+                                    <ol id="materialList" class="list-group">
+                                        <li class="list-group-item">
+                                            <small>1000002626</small>
+                                            <h6>FIBER DP WO SPLITTER AERIAL</h6>
+
+                                            <p class="mb-1">
+                                                2 pcs
+                                            </p>
+                                        </li>
+                                    </ol>
                                 </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-email">Email</label>
-                                <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                    <input type="text" id="basic-icon-default-email" class="form-control"
-                                        placeholder="john.doe" aria-label="john.doe"
-                                        aria-describedby="basic-icon-default-email2" />
-                                    <span id="basic-icon-default-email2" class="input-group-text">@example.com</span>
-                                </div>
-                                <div class="form-text">You can use letters, numbers & periods</div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-phone">Phone No</label>
-                                <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-phone2" class="input-group-text"><i
-                                            class="bx bx-phone"></i></span>
-                                    <input type="text" id="basic-icon-default-phone" class="form-control phone-mask"
-                                        placeholder="658 799 8941" aria-label="658 799 8941"
-                                        aria-describedby="basic-icon-default-phone2" />
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-message">Message</label>
-                                <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-message2" class="input-group-text"><i
-                                            class="bx bx-comment"></i></span>
-                                    <textarea id="basic-icon-default-message" class="form-control"
-                                        placeholder="Hi, Do you have a moment to talk Joe?"
-                                        aria-label="Hi, Do you have a moment to talk Joe?"
-                                        aria-describedby="basic-icon-default-message2"></textarea>
-                                </div>
+
                             </div>
                             <button type="submit" class="btn btn-primary">Send</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        </form>
     </div>
-    <!-- / Content -->
+</div>
+</div>
+</div>
+</div>
+<!-- / Content -->
+<div class="buy-now">
+    <button type="button" onclick="CreateNewItem()"
+        class="btn rounded-pill btn-icon btn-buy-now"><span class="tf-icons bx bx-plus"></span></button>
+</div>
 
+<script>
+    function CreateNewItem(){
+        var li = document.createElement('li');
+        var materialID = document.createElement('small');
+        var materialName = document.createElement('h6');
+        var quantity = document.createElement('p');
+        li.className = "list-group-item";
+        quantity.className = "mb-1";
 
-    @endsection
+        var matID = document.createTextNode("1000002626");
+        var matName = document.createTextNode("FIBER DP WO SPLITTER AERIAL");
+        var matQ = document.createTextNode("2 pcs");
+
+        materialID.appendChild(matID);
+        materialName.appendChild(matName);
+        quantity.appendChild(matQ);
+
+        li.appendChild(materialID);
+        li.appendChild(materialName);
+        li.appendChild(quantity);
+
+        document.getElementById('materialList').appendChild(li);
+
+    }
+</script>
+@endsection
