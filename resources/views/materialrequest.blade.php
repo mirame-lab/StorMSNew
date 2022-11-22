@@ -96,12 +96,58 @@
 </div>
 <!-- / Content -->
 <div class="buy-now">
-    <button type="button" onclick="CreateNewItem()"
-        class="btn rounded-pill btn-icon btn-buy-now"><span class="tf-icons bx bx-plus"></span></button>
+    <button type="button" class="btn rounded-pill btn-icon btn-buy-now" data-bs-toggle="modal"
+        data-bs-target="#backDropModal">
+        <span class="tf-icons bx bx-plus"></span></button>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="backDropModalTitle">Add Material</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="nameBackdrop" class="form-label">Name</label>
+                        <input list="materiallist" name="materiallist" type="text" id="nameBackdrop"
+                            class="form-control" placeholder="FIBER DP WO SPLITTER AERIAL" />
+                        <datalist id="materiallist">
+                            @foreach($materiallist as $materiallist)
+                            <option value="{{$materiallist->material_name}}">
+                                @endforeach
+                        </datalist>
+
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col mb-0">
+                        <label for="materialID" class="form-label">ID</label>
+                        <input type="text" id="materialID" class="form-control" placeholder="1000002626" 
+                        value=""/>
+                    </div>
+                    <div class="col mb-0">
+                        <label for="dobBackdrop" class="form-label">Quantity</label>
+                        <input type="number" id="dobBackdrop" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script>
-    function CreateNewItem(){
+    function CreateNewItem() {
         var li = document.createElement('li');
         var materialID = document.createElement('small');
         var materialName = document.createElement('h6');

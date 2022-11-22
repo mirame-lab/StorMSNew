@@ -16,8 +16,9 @@ class ProjectListController extends Controller
     public function index()
     {
         $projectlist = DB::table('pending_progress_update_lor')->get();
+        $materiallist = DB::table('material_management__241022')->get();
 
-        return view('materialrequest',compact('projectlist'));
+        return view('materialrequest',compact('projectlist','materiallist'));
     }
 
     /**
