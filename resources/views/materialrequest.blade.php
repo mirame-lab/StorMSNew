@@ -114,8 +114,8 @@
                 <div class="row">
                     <div class="col mb-3">
                         <label for="nameBackdrop" class="form-label">Name</label>
-                        <input list="materiallist" name="materiallist" type="text" id="nameBackdrop"
-                            class="form-control" placeholder="FIBER DP WO SPLITTER AERIAL" />
+                        <input list="materiallist" name="materiallist" type="text" id="materialname"
+                            class="form-control" placeholder="FIBER DP WO SPLITTER AERIAL" onchange="{{[App\Http\Controllers\ProjectListController::class, 'autofill']}}"/>
                         <datalist id="materiallist">
                             @foreach($materiallist as $materiallist)
                             <option value="{{$materiallist->material_name}}">
@@ -127,8 +127,7 @@
                 <div class="row g-2">
                     <div class="col mb-0">
                         <label for="materialID" class="form-label">ID</label>
-                        <input type="text" id="materialID" class="form-control" placeholder="1000002626" 
-                        value=""/>
+                        <input type="text" id="materialID" class="form-control" placeholder="1000002626" />
                     </div>
                     <div class="col mb-0">
                         <label for="dobBackdrop" class="form-label">Quantity</label>
@@ -147,6 +146,14 @@
 </div>
 
 <script>
+    // if(document.getElementById('materialname').value)
+    // {
+    //     <?php 
+    //         @foreach($materiallist as $materiallist)
+    //         $materiallist->material_id
+    //         @endforeach
+    //         ?>
+    // }
     function CreateNewItem() {
         var li = document.createElement('li');
         var materialID = document.createElement('small');

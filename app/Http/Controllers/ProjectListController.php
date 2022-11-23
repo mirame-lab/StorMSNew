@@ -18,9 +18,20 @@ class ProjectListController extends Controller
         $projectlist = DB::table('pending_progress_update_lor')->get();
         $materiallist = DB::table('material_management__241022')->get();
 
-        return view('materialrequest',compact('projectlist','materiallist'));
+        return view('materialrequest', compact('projectlist', 'materiallist'));
     }
+    public function autofill()
+    {
+        if($_GET['materiallist'])
+        {
+            echo $_GET['materiallist'];
+            $material = DB::table('material_management__241022')->get().where('material_name',$_GET['materiallist']);
+            $materialID = $material->material_id;
 
+            return view('materialrequest', compact('materialID'));
+        }
+        
+    }
     /**
      * Show the form for creating a new resource.
      *
