@@ -13,7 +13,15 @@
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0">Basic Information</h5>
-                            <small class="text-muted float-end">tarikh</small>
+                            <small class="text-muted float-end">
+                                <script>
+                                    const date = new Date();
+                                    var day =  date.getDate();
+                                    var month = date.getMonth();
+                                    var yr = date.getFullYear();
+                                    document.write(day + "/" + (month+1) + "/" + yr);
+                                </script>
+                            </small>
                         </div>
                         <div class="card-body">
 
@@ -72,16 +80,9 @@
                                 <label class="form-label" for="basic-icon-default-fullname">Item List</label>
 
                                 <div class="demo-inline-spacing ">
-
+                                    <small>Press "+" to add materials.</small>
                                     <ol id="materialList" class="list-group">
-                                        <li class="list-group-item">
-                                            <small>1000002626</small>
-                                            <h6>FIBER DP WO SPLITTER AERIAL</h6>
 
-                                            <p class="mb-1">
-                                                2 pcs
-                                            </p>
-                                        </li>
                                     </ol>
                                 </div>
 
@@ -105,7 +106,7 @@
 <!-- Modal -->
 <div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
     <div class="modal-dialog">
-        <form class="modal-content">
+        <form class="modal-content" method="post">
             <div class="modal-header">
                 <h5 class="modal-title" id="backDropModalTitle">Add Material</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -113,9 +114,10 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col mb-3">
-                        <label for="nameBackdrop" class="form-label">Name</label>
+                        <label for="nameBackdrop" class="form-label">Description</label>
                         <input list="materiallist" name="materiallist" type="text" id="materialname"
-                            class="form-control" placeholder="FIBER DP WO SPLITTER AERIAL" onchange="{{[App\Http\Controllers\ProjectListController::class, 'autofill']}}"/>
+                            class="form-control" placeholder="FIBER DP WO SPLITTER AERIAL"
+                            onchange="autofill(this.value)">
                         <datalist id="materiallist">
                             @foreach($materiallist as $materiallist)
                             <option value="{{$materiallist->material_name}}">
@@ -131,7 +133,7 @@
                     </div>
                     <div class="col mb-0">
                         <label for="dobBackdrop" class="form-label">Quantity</label>
-                        <input type="number" id="dobBackdrop" class="form-control" />
+                        <input type="number" id="quantity" class="form-control" />
                     </div>
                 </div>
             </div>
@@ -139,21 +141,31 @@
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     Close
                 </button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" onclick="CreateNewItem()">Save</button>
             </div>
         </form>
     </div>
 </div>
 
 <script>
-    // if(document.getElementById('materialname').value)
-    // {
-    //     <?php 
-    //         @foreach($materiallist as $materiallist)
-    //         $materiallist->material_id
-    //         @endforeach
-    //         ?>
-    // }
+    function autofill(name) {
+
+        if (name.length == 0) {
+            document.getElementById("materialID").value = "";
+            return;
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("materialID").value = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "/get-material-id?q=" + name, true);
+            xmlhttp.send();
+        }
+    }
+
+
     function CreateNewItem() {
         var li = document.createElement('li');
         var materialID = document.createElement('small');
@@ -162,9 +174,9 @@
         li.className = "list-group-item";
         quantity.className = "mb-1";
 
-        var matID = document.createTextNode("1000002626");
-        var matName = document.createTextNode("FIBER DP WO SPLITTER AERIAL");
-        var matQ = document.createTextNode("2 pcs");
+        var matID = document.createTextNode(document.getElementById("materialID").value);
+        var matName = document.createTextNode(document.getElementById("materialname").value);
+        var matQ = document.createTextNode(document.getElementById("quantity").value + " pcs");
 
         materialID.appendChild(matID);
         materialName.appendChild(matName);
@@ -174,8 +186,12 @@
         li.appendChild(materialName);
         li.appendChild(quantity);
 
+
+
         document.getElementById('materialList').appendChild(li);
 
     }
+
+   
 </script>
 @endsection

@@ -22,13 +22,15 @@ class ProjectListController extends Controller
     }
     public function autofill()
     {
-        if($_GET['materiallist'])
+        $materialname = $_REQUEST["q"];
+        if($materialname)
         {
-            echo $_GET['materiallist'];
-            $material = DB::table('material_management__241022')->get().where('material_name',$_GET['materiallist']);
-            $materialID = $material->material_id;
-
-            return view('materialrequest', compact('materialID'));
+            // echo $materialname;
+            $material = DB::table('material_management__241022')->get()->where('material_name',$materialname);
+            foreach($material as $material) $materialID = $material->material_id;
+    
+            // return view('materialrequest', compact('materialID'));
+            echo $materialID === "" ? "no suggestion" : $materialID;
         }
         
     }
