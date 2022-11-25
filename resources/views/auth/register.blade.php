@@ -18,13 +18,44 @@
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label for="ic" class="col-md-4 col-form-label text-md-end">{{ __('IC') }}</label>
 
+                            <div class="col-md-6">
+                                <input id="ic" type="text" class="form-control" name="ic" value="{{ old('ic') }}" required autocomplete="ic" autofocus>
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="tel" class="col-md-4 col-form-label text-md-end">{{ __('Tel') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="tel" type="text" class="form-control" name="tel" value="{{ old('tel') }}" required autocomplete="tel" autofocus>
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="role" type="text" class="form-control" name="role" value="{{ old('role') }}" required autocomplete="role" autofocus>
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="team" class="col-md-4 col-form-label text-md-end">{{ __('Team') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="team" type="text" class="form-control" name="team" value="{{ old('team') }}" required autocomplete="team" autofocus>
+
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
@@ -32,9 +63,9 @@
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -46,9 +77,9 @@
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>

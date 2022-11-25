@@ -187,18 +187,15 @@
         li.appendChild(materialName);
         li.appendChild(quantity);
 
-        var name = document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('req_date').innerHTML);
-        var req_date = document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('req_date').innerHTML);
+        var req_date = document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('req_date').text);
         var ic = document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('ic').value);
-        var mat_name = document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('materialname').value);
         var proj_id= document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('project').value);
         var mat_id = document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('materialID').value);
         var quantity = document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('quantity').value);
         
-        li.appendChild(name);
+
         li.appendChild(req_date);
         li.appendChild(ic);
-        li.appendChild(mat_name);
         li.appendChild(proj_id);
         li.appendChild(mat_id);
         li.appendChild(quantity);

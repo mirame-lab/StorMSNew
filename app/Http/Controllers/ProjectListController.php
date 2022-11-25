@@ -36,12 +36,19 @@ class ProjectListController extends Controller
     }
     /**
      * Show the form for creating a new resource.
-     *
+     * @param  array  $data
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(array $data)
     {
-        //
+        return ProjectList::create([
+            'ic' => $data['requester_id'],
+            'req_date' => $data['date_requested'],
+            'mat_id' => $data['material_id'],
+            'proj_id' => $data['project_id'],
+            'quantity' => $data['q_taken'],
+
+        ]);
     }
 
     /**
