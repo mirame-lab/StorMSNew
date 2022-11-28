@@ -41,14 +41,7 @@ class ProjectListController extends Controller
      */
     public function create(array $data)
     {
-        return ProjectList::create([
-            'ic' => $data['requester_id'],
-            'req_date' => $data['date_requested'],
-            'mat_id' => $data['material_id'],
-            'proj_id' => $data['project_id'],
-            'quantity' => $data['q_taken'],
 
-        ]);
     }
 
     /**
@@ -59,7 +52,7 @@ class ProjectListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

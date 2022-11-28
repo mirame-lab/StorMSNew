@@ -20,7 +20,7 @@
                         <div class="mb-3">
                             <label class="form-label" for="name">Nama</label>
                             <input type="text" class="form-control" id="name" value="{{Auth::user()->name}}"
-                                placeholder="Muhamad Izwan" readonly />
+                                placeholder="Mohamad Izwan" readonly />
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="ic">IC No.</label>
@@ -76,7 +76,8 @@
                                 </datalist>
                             </div>
                         </div>
-                        <form>
+                        <form method="POST" action="{{route('requestlist.store')}}">
+                            @csrf
                             <div class="mb-3">
                                 <label class="form-label" for="basic-icon-default-fullname">Item List</label>
 
@@ -107,7 +108,8 @@
     <!-- Modal -->
     <div class="modal fade" id="backDropModal" tabindex="-1">
         <div class="modal-dialog">
-            <form class="modal-content" method="post">
+            <form class="modal-content">
+                @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="backDropModalTitle">Add Material</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -187,18 +189,44 @@
         li.appendChild(materialName);
         li.appendChild(quantity);
 
-        var req_date = document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('req_date').text);
-        var ic = document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('ic').value);
-        var proj_id= document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('project').value);
-        var mat_id = document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('materialID').value);
-        var quantity = document.createElement('input').setAttribute("type", "hidden").setAttribute("value", document.getElementById('quantity').value);
-        
+        var req_date = document.createElement('input');
+        var ic = document.createElement('input');
+        var proj_id= document.createElement('input');
+        var mat_id = document.createElement('input');
+        var quantity = document.createElement('input');
 
+        req_date.setAttribute('name','req_date');
+        ic.setAttribute('name','ic');
+        proj_id.setAttribute('name','proj_id');
+        mat_id.setAttribute('name','mat_id');
+        quantity.setAttribute('name','quantity');
+
+        req_date.value = document.getElementById('req_date').innerText;
+        ic.value = document.getElementById('ic').value;
+        proj_id.value = document.getElementById('project').value;
+        mat_id.value = document.getElementById('materialID').value;
+        quantity.value = document.getElementById('quantity').value;
+
+
+        req_date.setAttribute('type','hidden');
+        ic.setAttribute('type','hidden');
+        proj_id.setAttribute('type','hidden');
+        mat_id.setAttribute('type','hidden');
+        quantity.setAttribute('type','hidden');
+        
         li.appendChild(req_date);
         li.appendChild(ic);
         li.appendChild(proj_id);
         li.appendChild(mat_id);
         li.appendChild(quantity);
+
+        
+
+        // document.getElementsByName('req_date')[0].style.visibility = "hidden";
+        // document.getElementsByName('ic')[0].style.visibility = "hidden";
+        // document.getElementsByName('proj_id')[0].style.visibility = "hidden";
+        // document.getElementsByName('mat_id')[0].style.visibility = "hidden";
+        // document.getElementsByName('quantity')[0].style.visibility = "hidden";
 
         document.getElementById('materialList').appendChild(li);
 

@@ -35,7 +35,16 @@ class RequestListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        RequestList::create(
+            [
+                'requester_id' => $request['ic'],
+                'date_requested' => $request['req_date'],
+                'material_id' => $request['mat_id'],
+                'project_id' => $request['proj_id'],
+                'q_taken' => $request['quantity'],
+            ]
+        );
     }
 
     /**

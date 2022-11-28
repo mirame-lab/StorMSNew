@@ -26,3 +26,7 @@ Route::get('/user-dashboard', function () {
 })->name('user-dashboard');
 Route::get('/user-material-request-form', [App\Http\Controllers\ProjectListController::class, 'index'] )->name('user-material-request-form');
 Route::get('/get-material-id', [App\Http\Controllers\ProjectListController::class, 'autofill'] )->name('get-material-id');
+Route::resource('projectlist',App\Http\Controllers\ProjectListController::class);
+Route::resource('requestlist',App\Http\Controllers\RequestListController::class);
+
+

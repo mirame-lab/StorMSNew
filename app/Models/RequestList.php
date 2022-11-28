@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class RequestList extends Model
 {
     use HasFactory;
+
+      protected $fillable = [
+        'request_id',
+        'requester_id',
+        'project_id',
+        'material_id',
+        'date_requested',
+        'q_taken',
+        'M_approval',
+        'M_approval_date',
+        'SK_approval',
+        'SK_approval_date',
+    ];
 }
