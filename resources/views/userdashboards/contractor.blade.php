@@ -4,6 +4,7 @@
         <table class="table">
             <thead class="table-dark">
                 <tr>
+                    <th>Request ID</th>
                     <th>Material ID</th>
                     <th>Material Name</th>
                     <th>Quantity</th>
@@ -12,13 +13,17 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
+                @foreach($req_list as $req_list)
                 <tr>
-                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1000000118</strong></td>
-                    <td>END CAP SUBDUCT (40MM)</td>
+                    <td><strong>{{$req_list['request_id']}}</strong></td>
+                    <td>{{$req_list['material_id']}}</td>
+                    <td>{{$req_list['mat_name']}}</td>
+                    <td>{{$req_list['q_taken']}}</td>
                     <td>
-                        32
+                        <!-- <span class="badge bg-label-primary me-1">Approved</span> -->
+                        <!-- <span class="badge bg-label-success me-1">Approved</span>  -->
+                        <span class="badge bg-label-warning me-1">Pending</span> 
                     </td>
-                    <td><span class="badge bg-label-primary me-1">Approved</span></td>
                     <td class="col-sm-1">
                         <!-- <div class="dropdown"> -->
                         <!-- <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -42,10 +47,14 @@
                     </td>
                 </tr>
 
-
+                @endforeach
 
             </tbody>
         </table>
     </div>
 </div>
 <!--/ Bootstrap Table with Header Dark -->
+
+<script>
+
+</script>

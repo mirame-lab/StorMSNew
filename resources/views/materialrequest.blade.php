@@ -144,7 +144,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary" onclick="CreateNewItem()">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="CreateNewItem()" data-bs-dismiss="modal">Save</button>
                 </div>
             </form>
         </div>
@@ -195,11 +195,11 @@
         var mat_id = document.createElement('input');
         var quantity = document.createElement('input');
 
-        req_date.setAttribute('name','req_date');
-        ic.setAttribute('name','ic');
-        proj_id.setAttribute('name','proj_id');
-        mat_id.setAttribute('name','mat_id');
-        quantity.setAttribute('name','quantity');
+        req_date.setAttribute('name','req_date[]');
+        ic.setAttribute('name','ic[]');
+        proj_id.setAttribute('name','proj_id[]');
+        mat_id.setAttribute('name','mat_id[]');
+        quantity.setAttribute('name','quantity[]');
 
         req_date.value = document.getElementById('req_date').innerText;
         ic.value = document.getElementById('ic').value;
