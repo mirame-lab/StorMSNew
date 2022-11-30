@@ -61,8 +61,9 @@ class RequestListController extends Controller
         $p_id = mb_substr($request['proj_id'][0], 0, 11); 
 
         // $query = $request->get();
+        // echo count((array)$request['req_date']);
         
-        for($i=0; $i<count((array)$request)-1; $i++)
+        for($i=0; $i<count((array)$request['req_date']); $i++)
         {
             RequestList::create(
                 [
