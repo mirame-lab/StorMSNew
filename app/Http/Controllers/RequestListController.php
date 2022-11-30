@@ -17,13 +17,15 @@ class RequestListController extends Controller
     public function index()
     {
         $requests = DB::table('request_lists')->get()->where('requester_id', Auth::user()->ic);
+        $all_requests = DB::table('request_lists')->get();
         $req_list = json_decode(DB::table('request_lists')->get()->where('requester_id', Auth::user()->ic), true);
         foreach ($req_list as &$req_data) {
-            // $req_data['mat_name'] 
-            $req_data['mat_name'] = DB::table('material_management__241022')->get()->where('material_id', $req_data['material_id'])->first()->material_name;
-            // array_push($materials, DB::table('material_management__241022')->get()->where('material_id',$req->material_id)->first());
+            $req_data['mat_name'] = DB::table('material_management__241022')->get()->where('material_id', $req_data['material_id'])->first()->material_name; 
         }
-        return view('Dashboard', compact('req_list'));
+
+        // $r_id_count = array_count_values($req_list);
+        // echo var_dump($r_id_count);
+        return view('Dashboard', compact('req_list','all_requests'));
     }
 
     /**
