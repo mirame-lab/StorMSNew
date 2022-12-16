@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    'from' => ['address' => 'example@example.com', 'name' => 'App Name'],
     /*
     |--------------------------------------------------------------------------
     | Default Mailer

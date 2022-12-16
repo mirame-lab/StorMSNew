@@ -26,7 +26,10 @@ Route::get('/user-dashboard', function () {
 })->name('user-dashboard');
 Route::get('/user-material-request-form', [App\Http\Controllers\ProjectListController::class, 'index'] )->name('user-material-request-form');
 Route::get('/get-material-id', [App\Http\Controllers\ProjectListController::class, 'autofill'] )->name('get-material-id');
+Route::get('/get-drum-list', [App\Http\Controllers\RequestListController::class, 'getDrumList'] )->name('get-drum-list');
 Route::resource('projectlist',App\Http\Controllers\ProjectListController::class);
 Route::resource('requestlist',App\Http\Controllers\RequestListController::class);
+Route::resource('report',App\Http\Controllers\ReportController::class);
+// Route::get('/send/email', [App\Http\Controllers\HomeController::class, 'mail']);
 
 

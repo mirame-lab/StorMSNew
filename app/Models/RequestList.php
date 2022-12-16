@@ -16,6 +16,7 @@ class RequestList extends Model
         'material_id',
         'date_requested',
         'q_taken',
+        'drum_no',
         'M_approval',
         'M_approval_date',
         'SK_approval',

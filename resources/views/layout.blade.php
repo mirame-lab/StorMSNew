@@ -65,6 +65,9 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://goessner.net/download/prj/jsonxml/xml2json.js"></script>
+    
   </head>
 
   <body>
@@ -154,14 +157,21 @@
               </a>
             </li>
 
+            @if(Auth::User()->role == "Contractor")
             <li class="menu-item">
               <a href="{{ route('user-material-request-form') }}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-package"></i>
                 <div data-i18n="Analytics">Material Request</div>
               </a>
             </li>
-
-           
+            @elseif(Auth::User()->role == "Storekeeper")
+            <li class="menu-item">
+              <a href="{{ route('report.index') }}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+                <div data-i18n="Analytics">Reporting</div>
+              </a>
+            </li>
+            @endif
           </ul>
         </aside>
         
@@ -344,5 +354,6 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
   </body>
 </html>

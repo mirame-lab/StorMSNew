@@ -17,8 +17,9 @@ class ProjectListController extends Controller
     {
         $projectlist = DB::table('pending_progress_update_lor')->get();
         $materiallist = DB::table('material_management__241022')->get();
+        $cableslist = DB::table('cables')->get();
 
-        return view('materialrequest', compact('projectlist', 'materiallist'));
+        return view('materialrequest', compact('projectlist', 'materiallist','cableslist'));
     }
     public function autofill()
     {
@@ -52,7 +53,7 @@ class ProjectListController extends Controller
      */
     public function store(Request $request)
     {
-
+        
     }
 
     /**

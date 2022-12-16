@@ -20,6 +20,7 @@ class CreateRequestsTable extends Migration
             $table->string('requester_id');
             $table->string('project_id');
             $table->string('material_id');
+            $table->string('drum_no');
             $table->string('date_requested');
             $table->boolean('M_approval');
             $table->string('M_approval_date');
