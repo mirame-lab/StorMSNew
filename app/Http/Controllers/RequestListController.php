@@ -119,7 +119,7 @@ class RequestListController extends Controller
                     'requester_id' => $request['ic'][$i],
                     'date_requested' => $request['req_date'][$i],
                     'material_id' => $request['mat_id'][$i],
-                    'drum_no' => "", //$request['drum_no'][$i]
+                    'drum_no' => $request['cables'][$i],
                     'project_id' => $p_id,
                     'q_taken' => $request['quantity'][$i],
                     'SK_approval' => false,

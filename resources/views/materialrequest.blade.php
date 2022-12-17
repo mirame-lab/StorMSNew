@@ -185,6 +185,7 @@
 
     <script>
         var drums = [];
+        var count = 0;
 
         function setval(value, amount, id) {
             // document.getElementById('drum_no').value = value;
@@ -304,6 +305,7 @@
 
 
         function CreateNewItem() {
+            count++;
             drum_no = document.getElementById("materialID").value;
 
             var li = document.createElement('li');
@@ -348,20 +350,29 @@
             var mat_id = document.createElement('input');
             var quantity = document.createElement('input');
             var cables = document.createElement('input');
+            var del = document.createElement('span');
+            var trash = document.createElement('i');
 
             req_date.setAttribute('name', 'req_date[]');
             ic.setAttribute('name', 'ic[]');
             proj_id.setAttribute('name', 'proj_id[]');
             mat_id.setAttribute('name', 'mat_id[]');
             quantity.setAttribute('name', 'quantity[]');
-            cables.setAttribute('name', 'quantity[]');
+            cables.setAttribute('name', 'cables[]');
+            del.setAttribute('class', 'badge bg-danger');
+            trash.setAttribute('class', 'bx bx-trash me-2');
+
+            trash.setAttribute('onclick', 'deleteMat('+ count +')');
+
+            del.appendChild(trash);
+            li.appendChild(del);
 
             req_date.value = document.getElementById('req_date').innerText;
             ic.value = document.getElementById('ic').value;
             proj_id.value = document.getElementById('project').value;
             mat_id.value = document.getElementById('materialID').value;
             quantity.value = document.getElementById('quantity').value;
-            cables.value = document.getElementById('quantity').value;
+            cables.value = JSON.stringify(drums);
 
 
             req_date.setAttribute('type', 'hidden');
@@ -376,8 +387,10 @@
             li.appendChild(proj_id);
             li.appendChild(mat_id); 
             li.appendChild(quantity);
+            li.appendChild(cables);
 
 
+            li.setAttribute('id',String(count));
 
             // document.getElementsByName('req_date')[0].style.visibility = "hidden";
             // document.getElementsByName('ic')[0].style.visibility = "hidden";
@@ -388,6 +401,11 @@
             document.getElementById('materialList').appendChild(li);
 
         }
+
+        function deleteMat(id){
+            document.getElementById(id).innerHTML = "";
+        }
+
 
 
     </script>
