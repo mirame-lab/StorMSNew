@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class CableDrums extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'material_id',
+        'material_name',
+        'drum_no',
+        'balance',
+        'in_drum',
+    ];
 }

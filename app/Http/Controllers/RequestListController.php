@@ -168,12 +168,13 @@ class RequestListController extends Controller
             print_r($request['approve'][$i]);
             $req->SK_approval = $request['approve'][$i];
             $req->SK_approval_date = date("d/m/Y");
+            $material = DB::table('material_management__241022')->get()->where('material_id',$request['mat_id'][$i]);
+            foreach($material as $material){
+                DB::update('update material_management__241022 set quantity = ? where material_id = ?',[$material->quantity -= $req->q_taken,$request['mat_id'][$i]]);
+            }
 
             $req->save();
-            // $requestList->fill($request->update([
-            //     'SK_approval' => $request['sk_approval'],
-            //     'SK_approval_date' => (string)date("d/m/Y"),
-            // ]))->save();
+
         }
         return redirect()->route('requestlist.index')
             ->with('success', 'Product updated successfully');

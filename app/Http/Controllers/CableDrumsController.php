@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CableDrums;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CableDrumsController extends Controller
 {
@@ -35,7 +36,17 @@ class CableDrumsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $result = DB::table('cables');
+        CableDrums::create(
+            [
+                'material_id' => $request->materialID,
+                'material_name' => $request->mat_name,
+                'drum_no' => $request->drum,
+                'balance' => $request->quantity,
+                'in_drum' => $request->quantity
+            ]
+        );
+        return redirect()->route('projectlist.index');
     }
 
     /**
@@ -69,7 +80,7 @@ class CableDrumsController extends Controller
      */
     public function update(Request $request, CableDrums $cableDrums)
     {
-        //
+       
     }
 
     /**

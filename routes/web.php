@@ -30,6 +30,8 @@ Route::get('/get-drum-list', [App\Http\Controllers\RequestListController::class,
 Route::resource('projectlist',App\Http\Controllers\ProjectListController::class);
 Route::resource('requestlist',App\Http\Controllers\RequestListController::class);
 Route::resource('report',App\Http\Controllers\ReportController::class);
+Route::resource('material',App\Http\Controllers\MaterialListController::class);
+Route::resource('cables',App\Http\Controllers\MaterialListController::class);
 // Route::get('/send/email', [App\Http\Controllers\HomeController::class, 'mail']);
 
 

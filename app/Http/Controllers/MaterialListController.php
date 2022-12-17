@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MaterialList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MaterialListController extends Controller
 {
@@ -35,7 +36,7 @@ class MaterialListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**
@@ -69,7 +70,15 @@ class MaterialListController extends Controller
      */
     public function update(Request $request, MaterialList $materialList)
     {
-        //
+        $material = DB::table('material_management__241022')->get()->where('material_id',$request->materialID);
+        
+        foreach($material as $material){
+            $a = (float)$material->quantity;
+            $b = (float)$request->quantity;
+            DB::update('update material_management__241022 set quantity = ? where material_id = ?',[ $a  += $b, $request->materialID]);
+        }
+        return redirect()->route('report.index')
+            ->with('success', 'Product updated successfully');
     }
 
     /**

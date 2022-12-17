@@ -77,7 +77,7 @@
                                                     @endif
                                                     <span class="badge bg-primary">{{$all_req_materials[$i]["materials"][$j]['q_taken']}}</span>
 
-
+                                                    <input name="mat_id[]" type="hidden" value="{{$all_req_materials[$i]['materials'][$j]['material_id']}}">
                                                     <input name="id[]" type="hidden" value="{{$all_req_materials[$i]['materials'][$j]['id']}}">
                                                     <input name="approve[]" type="hidden" value="1">
 
