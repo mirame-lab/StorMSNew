@@ -29,11 +29,76 @@ use Illuminate\Support\Facades\Auth; ?>
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
+    <style>
+        html,
+        body {
+          margin: 0px;
+          height: 100%;
+        }
 
+        .landingpgtext{
+          width: 100%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: auto;
+          transform: translateX(-50%) translateY(-50%);
+          text-align: center;
+    
+        }
+        .versiontxt{
+          animation: reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .landingpage {
+          background: linear-gradient(-45deg, #6610f2, #696cff, #e83e8c);
+	        background-size: 400% 400%;
+	        animation: gradient 15s ease infinite;
+	        height: 100vh;
+        }
+
+        @keyframes gradient {
+	        0% {
+            background-position: 0% 50%;
+          }
+	        50% {
+            background-position: 100% 50%;
+          }
+	        100% {
+            background-position: 0% 50%;
+          }
+
+          
+        }
+        @keyframes reveal {
+  0% {
+    transform: translate(0,100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0,0);
+    opacity: 1;
+  }
+}
+        .cssanimation, .cssanimation span {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.cssanimation span { display: inline-block }
+
+.leRotateYZoomIn span { animation-name: leRotateYZoomIn }
+@keyframes leRotateYZoomIn {
+    from {
+        transform: perspective(600px) translate3d(0, -60px, -2000px) rotateY(75deg);
+        opacity: 0
+    }
+    5% { transform: perspective(600px) translate3d(0, -60px, -1500px) rotateY(75deg) }
+}
+    </style>
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
-
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
     
@@ -81,10 +146,10 @@ use Illuminate\Support\Facades\Auth; ?>
         <!-- Menu -->
 
 
-      
+    
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
+            <a href="/" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                   width="25"
@@ -183,7 +248,7 @@ use Illuminate\Support\Facades\Auth; ?>
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->
-
+          <div id='hide'>
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar"
@@ -284,7 +349,7 @@ use Illuminate\Support\Facades\Auth; ?>
           </nav>
           @endauth
           <!-- / Navbar -->
-
+          </div>
             @yield('content')
 
             @auth
@@ -295,7 +360,7 @@ use Illuminate\Support\Facades\Auth; ?>
                   ©
                   <script>
                     document.write(new Date().getFullYear());
-                </script>
+                  </script>
                   , made with ❤️ by
                   <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
                 </div>
@@ -333,7 +398,7 @@ use Illuminate\Support\Facades\Auth; ?>
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-    @endauth
+  @endauth
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -357,227 +422,229 @@ use Illuminate\Support\Facades\Auth; ?>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script>
-        var drums = [];
-        var count = 0;
+      var drums = [];
+      var count = 0;
 
-        function setval(value, amount, id) {
-            // document.getElementById('drum_no').value = value;
+      function setval(value, amount, id) {
+        // document.getElementById('drum_no').value = value;
 
 
-            if (document.getElementById(id).checked) {
-                drums.push(
-                    {
-                        drum_no: value,
-                        balance: amount
-                    }
-                );
+        if (document.getElementById(id).checked) {
+          drums.push(
+            {
+              drum_no: value,
+              balance: amount
             }
-            else {
-                const filtereddrums = drums.filter(drum => drum.drum_no !== value);
-                drums = filtereddrums;
-            }
-
-            // console.log(drums);
-            let total = drums.reduce(
-                function (previousValue, currentValue) {
-                    return previousValue + currentValue.balance;
-                }, 0
-            );
-            // console.log(total);
-            document.getElementById('quantity').value = total;
+          );
+        }
+        else {
+          const filtereddrums = drums.filter(drum => drum.drum_no !== value);
+          drums = filtereddrums;
         }
 
-        function autofill(name) {
-            var cablelist = document.getElementById('cablelist');
+        // console.log(drums);
+        let total = drums.reduce(
+          function (previousValue, currentValue) {
+            return previousValue + currentValue.balance;
+          }, 0
+        );
+        // console.log(total);
+        document.getElementById('quantity').value = total;
+      }
 
-            if (name.length == 0) {
-                document.getElementById("materialID").value = "";
-                return;
-            } else {
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("materialID").value = this.responseText;
-                        drum_no = document.getElementById('materialID').value;
+      function autofill(name) {
+        var cablelist = document.getElementById('cablelist');
 
-                        console.log(cablelist);
-                        if (((parseInt(drum_no) >= 1000000747) && (parseInt(drum_no) <= 1000000767) || parseInt(drum_no) == 1000004845)) {
-                            document.getElementById('cable').style.display = "block";
+        if (name.length == 0) {
+          document.getElementById("materialID").value = "";
+          return;
+        } else {
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("materialID").value = this.responseText;
+              drum_no = document.getElementById('materialID').value;
 
-                            if((cablelist !== null)){var xmlhttp2 = new XMLHttpRequest();
-                            xmlhttp2.onreadystatechange = function () {
-                                // console.log(this.responseText);
-                                const drumlist = JSON.parse(this.responseText);
-                                // console.log(Object.keys(drumlist));
-                                const keys = Object.keys(drumlist);
-                                if (cablelist.innerHTML) cablelist.innerHTML = " ";
-                                for (let i = 0; i < keys.length; i++) {
+              console.log(cablelist);
+              if (((parseInt(drum_no) >= 1000000747) && (parseInt(drum_no) <= 1000000767) || parseInt(drum_no) == 1000004845)) {
+                document.getElementById('cable').style.display = "block";
 
-                                    // console.log(drumlist[keys[i]].drum_no);
-                                    // var li = document.createElement('li');
-                                    // li.value = drumlist[keys[i]].drum_no;
-                                    // var a = document.createElement('a');
-                                    // a.setAttribute('class', 'dropdown-item');
-                                    // a.setAttribute('href', '#');
-                                    // a.setAttribute('o l ick', 'setval(' + '"' + drumlist[keys[]].drum_no + '"' + ',' + drumlist[keys[i]].balance + ');');
-                                    // var drum_no = document.createTextNode(drumlist[keys[i]].drum_no + " | " + drumlist[keys[i]].balance);
-                                    // a.appendChild(drum_no);
-                                    // li.appendChild(a);
-                                    // cablelist.appendChild(li);
+                if ((cablelist !== null)) {
+                  var xmlhttp2 = new XMLHttpRequest();
+                  xmlhttp2.onreadystatechange = function () {
+                    // console.log(this.responseText);
+                    const drumlist = JSON.parse(this.responseText);
+                    // console.log(Object.keys(drumlist));
+                    const keys = Object.keys(drumlist);
+                    if (cablelist.innerHTML) cablelist.innerHTML = " ";
+                    for (let i = 0; i < keys.length; i++) {
 
-                                    var div = document.createElement('div');
-                                    div.setAttribute('class', 'form-check');
+                      // console.log(drumlist[keys[i]].drum_no);
+                      // var li = document.createElement('li');
+                      // li.value = drumlist[keys[i]].drum_no;
+                      // var a = document.createElement('a');
+                      // a.setAttribute('class', 'dropdown-item');
+                      // a.setAttribute('href', '#');
+                      // a.setAttribute('o l ick', 'setval(' + '"' + drumlist[keys[]].drum_no + '"' + ',' + drumlist[keys[i]].balance + ');');
+                      // var drum_no = document.createTextNode(drumlist[keys[i]].drum_no + " | " + drumlist[keys[i]].balance);
+                      // a.appendChild(drum_no);
+                      // li.appendChild(a);
+                      // cablelist.appendChild(li);
 
-                                    var inp = document.createElement('input');
-                                    inp.setAttribute('class', 'form-check-input');
-                                    inp.setAttribute('type', 'checkbox');
-                                    inp.setAttribute('value', drumlist[keys[i]].drum_no);
-                                    inp.setAttribute('id', 'defaultCheck' + (i + 1));
-                                    inp.setAttribute('onclick', 'setval(' + '"' + drumlist[keys[i]].drum_no + '"' + ',' + drumlist[keys[i]].balance + ', this.id)');
+                      var div = document.createElement('div');
+                      div.setAttribute('class', 'form-check');
 
-                                    // var hiddenip = document.createElement('input');
-                                    // hiddenip.setAttribute('id', drumlist[keys[i]].drum_no);
-                                    // hiddenip.setAttribute('value', drumlist[keys[i]].balance);
-                                    // hiddenip.setAttribute('type', 'hidden');
-                                    // div.appendChild(hiddenip);
+                      var inp = document.createElement('input');
+                      inp.setAttribute('class', 'form-check-input');
+                      inp.setAttribute('type', 'checkbox');
+                      inp.setAttribute('value', drumlist[keys[i]].drum_no);
+                      inp.setAttribute('id', 'defaultCheck' + (i + 1));
+                      inp.setAttribute('onclick', 'setval(' + '"' + drumlist[keys[i]].drum_no + '"' + ',' + drumlist[keys[i]].balance + ', this.id)');
 
-                                    div.appendChild(inp);
+                      // var hiddenip = document.createElement('input');
+                      // hiddenip.setAttribute('id', drumlist[keys[i]].drum_no);
+                      // hiddenip.setAttribute('value', drumlist[keys[i]].balance);
+                      // hiddenip.setAttribute('type', 'hidden');
+                      // div.appendChild(hiddenip);
 
-                                    var label = document.createElement('label');
-                                    label.setAttribute('class', 'form-check-label');
-                                    label.setAttribute('for', 'defaultCheck' + (i + 1));
-                                    var txt = document.createTextNode(drumlist[keys[i]].drum_no + '........' + drumlist[keys[i]].balance);
-                                    label.appendChild(txt);
+                      div.appendChild(inp);
 
-                                    div.appendChild(label);
+                      var label = document.createElement('label');
+                      label.setAttribute('class', 'form-check-label');
+                      label.setAttribute('for', 'defaultCheck' + (i + 1));
+                      var txt = document.createTextNode(drumlist[keys[i]].drum_no + '........' + drumlist[keys[i]].balance);
+                      label.appendChild(txt);
 
-                                    cablelist.appendChild(div);
+                      div.appendChild(label);
 
-                                }
+                      cablelist.appendChild(div);
 
-                            }
-
-                            xmlhttp2.open("GET", "/get-drum-list?q=" + drum_no, true);
-                            xmlhttp2.send();}
-
-                        }
-                        else {
-                            document.getElementById('cable').style.display = "none";
-                        }
                     }
-                };
-                xmlhttp.open("GET", "/get-material-id?q=" + name, true);
-                xmlhttp.send();
 
+                  }
 
+                  xmlhttp2.open("GET", "/get-drum-list?q=" + drum_no, true);
+                  xmlhttp2.send();
+                }
 
+              }
+              else {
+                document.getElementById('cable').style.display = "none";
+              }
             }
+          };
+          xmlhttp.open("GET", "/get-material-id?q=" + name, true);
+          xmlhttp.send();
 
-            // if(parseInt(document.getElementById("materialID").value))
+
+
         }
 
+        // if(parseInt(document.getElementById("materialID").value))
+      }
 
-        function CreateNewItem() {
-            count++;
-            drum_no = document.getElementById("materialID").value;
 
+      function CreateNewItem() {
+        count++;
+        drum_no = document.getElementById("materialID").value;
+
+        var li = document.createElement('li');
+        var materialID = document.createElement('small');
+        var materialName = document.createElement('h6');
+        var quantity = document.createElement('p');
+        li.className = "list-group-item";
+        quantity.className = "mb-1";
+
+        var matID = document.createTextNode(document.getElementById("materialID").value);
+        var matName = document.createTextNode(document.getElementById("materialname").value);
+        var matQ = document.createTextNode(document.getElementById("quantity").value + " pcs");
+        if ((parseInt(drum_no) >= 1000000747) && (parseInt(drum_no) <= 1000000767) || parseInt(drum_no) == 1000004845) matQ = document.createTextNode(document.getElementById("quantity").value + " M");
+
+        materialID.appendChild(matID);
+        materialName.appendChild(matName);
+        quantity.appendChild(matQ);
+
+        li.appendChild(materialID);
+        li.appendChild(materialName);
+        if ((parseInt(drum_no) >= 1000000747) && (parseInt(drum_no) <= 1000000767) || parseInt(drum_no) == 1000004845) {
+
+          var ul = document.createElement('ol');
+          ul.setAttribute('class', 'mb-3');
+          drums.forEach(element => {
+            console.log(element.drum_no);
             var li = document.createElement('li');
-            var materialID = document.createElement('small');
-            var materialName = document.createElement('h6');
-            var quantity = document.createElement('p');
-            li.className = "list-group-item";
-            quantity.className = "mb-1";
+            var drumtxt = document.createTextNode(element.drum_no + ' [' + element.balance + ']');
 
-            var matID = document.createTextNode(document.getElementById("materialID").value);
-            var matName = document.createTextNode(document.getElementById("materialname").value);
-            var matQ = document.createTextNode(document.getElementById("quantity").value + " pcs");
-            if ((parseInt(drum_no) >= 1000000747) && (parseInt(drum_no) <= 1000000767) || parseInt(drum_no) == 1000004845) matQ = document.createTextNode(document.getElementById("quantity").value + " M");
+            li.appendChild(drumtxt);
 
-            materialID.appendChild(matID);
-            materialName.appendChild(matName);
-            quantity.appendChild(matQ);
+            ul.appendChild(li);
+          });
 
-            li.appendChild(materialID);
-            li.appendChild(materialName);
-            if ((parseInt(drum_no) >= 1000000747) && (parseInt(drum_no) <= 1000000767) || parseInt(drum_no) == 1000004845) {
-                
-                var ul = document.createElement('ol');
-                ul.setAttribute('class','mb-3');
-                drums.forEach(element => {
-                    console.log(element.drum_no);
-                    var li = document.createElement('li');
-                    var drumtxt = document.createTextNode(element.drum_no + ' [' + element.balance + ']');
-
-                    li.appendChild(drumtxt);
-
-                    ul.appendChild(li);
-                });
-
-                li.appendChild(ul);
-            }
-            li.appendChild(quantity);
-
-            var req_date = document.createElement('input');
-            var ic = document.createElement('input');
-            var proj_id = document.createElement('input');
-            var mat_id = document.createElement('input');
-            var quantity = document.createElement('input');
-            var cables = document.createElement('input');
-            var del = document.createElement('span');
-            var trash = document.createElement('i');
-
-            req_date.setAttribute('name', 'req_date[]');
-            ic.setAttribute('name', 'ic[]');
-            proj_id.setAttribute('name', 'proj_id[]');
-            mat_id.setAttribute('name', 'mat_id[]');
-            quantity.setAttribute('name', 'quantity[]');
-            cables.setAttribute('name', 'cables[]');
-            del.setAttribute('class', 'badge bg-danger');
-            trash.setAttribute('class', 'bx bx-trash me-2');
-
-            trash.setAttribute('onclick', 'deleteMat('+ count +')');
-
-            del.appendChild(trash);
-            li.appendChild(del);
-
-            req_date.value = document.getElementById('req_date').innerText;
-            ic.value = document.getElementById('ic').value;
-            proj_id.value = document.getElementById('project').value;
-            mat_id.value = document.getElementById('materialID').value;
-            quantity.value = document.getElementById('quantity').value;
-            cables.value = JSON.stringify(drums);
-
-
-            req_date.setAttribute('type', 'hidden');
-            ic.setAttribute('type', 'hidden');
-            proj_id.setAttribute('type', 'hidden');
-            mat_id.setAttribute('type', 'hidden');
-            quantity.setAttribute('type', 'hidden');
-            cables.setAttribute('type', 'hidden');
-
-            li.appendChild(req_date);
-            li.appendChild(ic);
-            li.appendChild(proj_id);
-            li.appendChild(mat_id); 
-            li.appendChild(quantity);
-            li.appendChild(cables);
-
-
-            li.setAttribute('id',String(count));
-
-            // document.getElementsByName('req_date')[0].style.visibility = "hidden";
-            // document.getElementsByName('ic')[0].style.visibility = "hidden";
-            // document.getElementsByName('proj_id')[0].style.visibility = "hidden";
-            // document.getElementsByName('mat_id')[0].style.visibility = "hidden";
-            // document.getElementsByName('quantity')[0].style.visibility = "hidden";
-
-            document.getElementById('materialList').appendChild(li);
-
+          li.appendChild(ul);
         }
+        li.appendChild(quantity);
 
-        function deleteMat(id){
-            document.getElementById(id).remove();
-        }
+        var req_date = document.createElement('input');
+        var ic = document.createElement('input');
+        var proj_id = document.createElement('input');
+        var mat_id = document.createElement('input');
+        var quantity = document.createElement('input');
+        var cables = document.createElement('input');
+        var del = document.createElement('span');
+        var trash = document.createElement('i');
+
+        req_date.setAttribute('name', 'req_date[]');
+        ic.setAttribute('name', 'ic[]');
+        proj_id.setAttribute('name', 'proj_id[]');
+        mat_id.setAttribute('name', 'mat_id[]');
+        quantity.setAttribute('name', 'quantity[]');
+        cables.setAttribute('name', 'cables[]');
+        del.setAttribute('class', 'badge bg-danger');
+        trash.setAttribute('class', 'bx bx-trash me-2');
+
+        trash.setAttribute('onclick', 'deleteMat(' + count + ')');
+
+        del.appendChild(trash);
+        li.appendChild(del);
+
+        req_date.value = document.getElementById('req_date').innerText;
+        ic.value = document.getElementById('ic').value;
+        proj_id.value = document.getElementById('project').value;
+        mat_id.value = document.getElementById('materialID').value;
+        quantity.value = document.getElementById('quantity').value;
+        cables.value = JSON.stringify(drums);
+
+
+        req_date.setAttribute('type', 'hidden');
+        ic.setAttribute('type', 'hidden');
+        proj_id.setAttribute('type', 'hidden');
+        mat_id.setAttribute('type', 'hidden');
+        quantity.setAttribute('type', 'hidden');
+        cables.setAttribute('type', 'hidden');
+
+        li.appendChild(req_date);
+        li.appendChild(ic);
+        li.appendChild(proj_id);
+        li.appendChild(mat_id);
+        li.appendChild(quantity);
+        li.appendChild(cables);
+
+
+        li.setAttribute('id', String(count));
+
+        // document.getElementsByName('req_date')[0].style.visibility = "hidden";
+        // document.getElementsByName('ic')[0].style.visibility = "hidden";
+        // document.getElementsByName('proj_id')[0].style.visibility = "hidden";
+        // document.getElementsByName('mat_id')[0].style.visibility = "hidden";
+        // document.getElementsByName('quantity')[0].style.visibility = "hidden";
+
+        document.getElementById('materialList').appendChild(li);
+
+      }
+
+      function deleteMat(id) {
+        document.getElementById(id).remove();
+      }
 
 
 
