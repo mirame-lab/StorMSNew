@@ -233,9 +233,22 @@ use Illuminate\Support\Facades\Auth; ?>
             </li>
             @elseif(Auth::User()->role == "Storekeeper")
             <li class="menu-item">
-              <a href="{{ route('report.index') }}" class="menu-link">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
               <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
                 <div data-i18n="Analytics">Reporting</div>
+              </a>
+                <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{ route('report.index') }} " class="menu-link">
+                    <div data-i18n="Error">Material Stock List</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route('material.index') }}" class="menu-link">
+                    <div data-i18n="Under Maintenance">Project List</div>
+                  </a>
+                </li>
+              </ul>
               </a>
             </li>
             @endif
@@ -361,8 +374,7 @@ use Illuminate\Support\Facades\Auth; ?>
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-                  , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+                  , made with 💔 
                 </div>
                 <div>
                   <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
@@ -425,6 +437,32 @@ use Illuminate\Support\Facades\Auth; ?>
       var drums = [];
       var count = 0;
 
+      function iscable(name=''){
+
+        console.log(document.getElementById('materialID').value);
+        //fix something here
+        id = document.getElementById('materialID').value;
+        
+        name = document.getElementById('materialname').value;
+        var x = new XMLHttpRequest();
+        var iscable = false;
+
+        x.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                iscable = Boolean(Number(this.responseText));
+                console.log(iscable);
+                if(typeof setinput === "function"){setinput(iscable);}
+                autofill(name,iscable);
+            }
+        }
+
+        x.open("GET", "/getiscable?q=" + id, true);
+        x.send();
+
+      }
+
+     
+
       function setval(value, amount, id) {
         // document.getElementById('drum_no').value = value;
 
@@ -452,7 +490,7 @@ use Illuminate\Support\Facades\Auth; ?>
         document.getElementById('quantity').value = total;
       }
 
-      function autofill(name) {
+      function autofill(name,result=false) {
         var cablelist = document.getElementById('cablelist');
 
         if (name.length == 0) {
@@ -465,8 +503,7 @@ use Illuminate\Support\Facades\Auth; ?>
               document.getElementById("materialID").value = this.responseText;
               drum_no = document.getElementById('materialID').value;
 
-              console.log(cablelist);
-              if (((parseInt(drum_no) >= 1000000747) && (parseInt(drum_no) <= 1000000767) || parseInt(drum_no) == 1000004845)) {
+              if (result) {
                 document.getElementById('cable').style.display = "block";
 
                 if ((cablelist !== null)) {
@@ -479,18 +516,6 @@ use Illuminate\Support\Facades\Auth; ?>
                     if (cablelist.innerHTML) cablelist.innerHTML = " ";
                     for (let i = 0; i < keys.length; i++) {
 
-                      // console.log(drumlist[keys[i]].drum_no);
-                      // var li = document.createElement('li');
-                      // li.value = drumlist[keys[i]].drum_no;
-                      // var a = document.createElement('a');
-                      // a.setAttribute('class', 'dropdown-item');
-                      // a.setAttribute('href', '#');
-                      // a.setAttribute('o l ick', 'setval(' + '"' + drumlist[keys[]].drum_no + '"' + ',' + drumlist[keys[i]].balance + ');');
-                      // var drum_no = document.createTextNode(drumlist[keys[i]].drum_no + " | " + drumlist[keys[i]].balance);
-                      // a.appendChild(drum_no);
-                      // li.appendChild(a);
-                      // cablelist.appendChild(li);
-
                       var div = document.createElement('div');
                       div.setAttribute('class', 'form-check');
 
@@ -500,12 +525,6 @@ use Illuminate\Support\Facades\Auth; ?>
                       inp.setAttribute('value', drumlist[keys[i]].drum_no);
                       inp.setAttribute('id', 'defaultCheck' + (i + 1));
                       inp.setAttribute('onclick', 'setval(' + '"' + drumlist[keys[i]].drum_no + '"' + ',' + drumlist[keys[i]].balance + ', this.id)');
-
-                      // var hiddenip = document.createElement('input');
-                      // hiddenip.setAttribute('id', drumlist[keys[i]].drum_no);
-                      // hiddenip.setAttribute('value', drumlist[keys[i]].balance);
-                      // hiddenip.setAttribute('type', 'hidden');
-                      // div.appendChild(hiddenip);
 
                       div.appendChild(inp);
 
@@ -529,7 +548,7 @@ use Illuminate\Support\Facades\Auth; ?>
 
               }
               else {
-                document.getElementById('cable').style.display = "none";
+                // document.getElementById('cable').style.display = "none";
               }
             }
           };
@@ -629,14 +648,7 @@ use Illuminate\Support\Facades\Auth; ?>
         li.appendChild(quantity);
         li.appendChild(cables);
 
-
         li.setAttribute('id', String(count));
-
-        // document.getElementsByName('req_date')[0].style.visibility = "hidden";
-        // document.getElementsByName('ic')[0].style.visibility = "hidden";
-        // document.getElementsByName('proj_id')[0].style.visibility = "hidden";
-        // document.getElementsByName('mat_id')[0].style.visibility = "hidden";
-        // document.getElementsByName('quantity')[0].style.visibility = "hidden";
 
         document.getElementById('materialList').appendChild(li);
 

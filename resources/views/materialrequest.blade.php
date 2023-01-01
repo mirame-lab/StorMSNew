@@ -70,9 +70,10 @@
                                 <input list="projectlist" name="projectlist" class="form-control" id="project">
                                 <datalist id="projectlist">
                                     @foreach($projectlist as $projectlist)
-                                    <option value="{{$projectlist->project_id}} | {{$projectlist->project_name}}">
+                                        @if($projectlist->project_id != '') <option value="{{$projectlist->project_id}} | {{$projectlist->project_name}}">
+                                        @else <option value="{{$projectlist->project_name}}">
+                                        @endif
                                         @endforeach
-
                                 </datalist>
                             </div>
                         </div>
@@ -127,7 +128,7 @@
                             <label for="nameBackdrop" class="form-label">Description</label>
                             <input list="materiallist" name="materiallist" type="text" id="materialname"
                                 class="form-control" placeholder="FIBER DP WO SPLITTER AERIAL" value=""
-                                onchange="autofill(this.value)">
+                                onchange="iscable(this.value)">
                             <datalist id="materiallist">
                                 @foreach($materiallist as $materiallist)
                                 <option value="{{$materiallist->material_name}}">
@@ -140,7 +141,7 @@
                         <div class="col mb-0">
                             <label for="materialID" class="form-label">ID</label>
                             <input type="text" id="materialID" class="form-control" placeholder="1000002626"
-                                onchange="cables()" />
+                         value="0" />
                         </div>
                         <div class="col mb-0">
                             <label for="dobBackdrop" class="form-label">Quantity</label>
@@ -148,7 +149,7 @@
                         </div>
                     </div>
 
-                    <div id="cable" class="col mt-3" style="display: none">
+                    <div id="cable" class="col mt-3" style="">
                         <label for="nameBackdrop" class="form-label">Drum list</label>
                         <div id="cablelist" class="input-group ">
                             <small>Select required drum(s). </small>

@@ -16,7 +16,7 @@ class ProjectListController extends Controller
     public function index()
     {
         $projectlist = DB::table('pending_progress_update_lor')->get();
-        $materiallist = DB::table('material_management__241022')->get();
+        $materiallist = DB::table('material')->get();
         $cableslist = DB::table('cables')->get();
 
         return view('materialrequest', compact('projectlist', 'materiallist','cableslist'));
@@ -27,7 +27,7 @@ class ProjectListController extends Controller
         if($materialname)
         {
             // echo $materialname;
-            $material = DB::table('material_management__241022')->get()->where('material_name',$materialname);
+            $material = DB::table('material')->get()->where('material_name',$materialname);
             foreach($material as $material) $materialID = $material->material_id;
     
             // return view('materialrequest', compact('materialID'));

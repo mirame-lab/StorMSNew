@@ -24,14 +24,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/user-dashboard', function () {
     return view('Dashboard');
 })->name('user-dashboard');
+Route::get('/getiscable', [App\Http\Controllers\MaterialListController::class, 'iscable'] )->name('getiscable');
 Route::get('/user-material-request-form', [App\Http\Controllers\ProjectListController::class, 'index'] )->name('user-material-request-form');
 Route::get('/get-material-id', [App\Http\Controllers\ProjectListController::class, 'autofill'] )->name('get-material-id');
 Route::get('/get-drum-list', [App\Http\Controllers\RequestListController::class, 'getDrumList'] )->name('get-drum-list');
+Route::get('/get-history-list', [App\Http\Controllers\MaterialListController::class, 'showHistory'] )->name('get-history-list');
+Route::get('/get-project-details', [App\Http\Controllers\MaterialListController::class, 'showdetail'] )->name('get-project-details');
 Route::resource('projectlist',App\Http\Controllers\ProjectListController::class);
 Route::resource('requestlist',App\Http\Controllers\RequestListController::class);
 Route::resource('report',App\Http\Controllers\ReportController::class);
 Route::resource('material',App\Http\Controllers\MaterialListController::class);
-Route::resource('cables',App\Http\Controllers\MaterialListController::class);
+Route::resource('cables',App\Http\Controllers\CableDrumsController::class);
 // Route::get('/send/email', [App\Http\Controllers\HomeController::class, 'mail']);
 
 

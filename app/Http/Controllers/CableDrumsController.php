@@ -15,7 +15,8 @@ class CableDrumsController extends Controller
      */
     public function index()
     {
-        //
+ 
+
     }
 
     /**
@@ -36,17 +37,35 @@ class CableDrumsController extends Controller
      */
     public function store(Request $request)
     {
-        $result = DB::table('cables');
-        CableDrums::create(
+        DB::table('material')->insert(
             [
-                'material_id' => $request->materialID,
-                'material_name' => $request->mat_name,
-                'drum_no' => $request->drum,
-                'balance' => $request->quantity,
-                'in_drum' => $request->quantity
+                'material_id' => $request->mat_id,
+                'material_name' => $request->materialname,
+                'quantity' => $request->qty
             ]
         );
-        return redirect()->route('projectlist.index');
+
+        if ($request->type == "Cable"){
+            DB::table('cables')->insert(
+                [
+                    'material_id' => $request->mat_id,
+                    'material_name' => $request->materialname,
+                    'drum_no' => $request->drum,
+                    'balance' => $request->qty
+                ]
+            );
+        }
+
+        DB::table('additions')->insert(
+            [
+                'material_id' => $request->mat_id,
+                'drum_no' => $request->drum,
+                'quantity' => $request->qty,
+                'date_added' => date("j\/n\/Y")
+            ]
+        );
+
+        print_r($request->type);
     }
 
     /**
@@ -80,7 +99,7 @@ class CableDrumsController extends Controller
      */
     public function update(Request $request, CableDrums $cableDrums)
     {
-       
+
     }
 
     /**

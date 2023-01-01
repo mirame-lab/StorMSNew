@@ -15,11 +15,19 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $materiallist = DB::table('material_management__241022')->get();
-        $count = 1;
+        $materiallist = DB::table('material')->get();
+        $count = 0;
         return view('reporting',compact('materiallist','count'));
     }
+    
 
+    public function showdetail()
+    {
+        $project_name = $_REQUEST['project'];
+        $materialforproject = DB::table('request_list')->get()->where('project_id',$project_name);
+        
+        return view('projectdetails', compact('materialforproject'));
+    }
     /**
      * Show the form for creating a new resource.
      *

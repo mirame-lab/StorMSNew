@@ -24,17 +24,16 @@ class RequestListController extends Controller
         $req_list = json_decode(DB::table('request_lists')->get()->where('requester_id', Auth::user()->ic), true);
         $all_req_materials = json_decode(DB::table('request_lists')->get(), true);
         foreach ($req_list as &$req_data) {
-            $req_data['mat_name'] = DB::table('material_management__241022')->get()->where('material_id', $req_data['material_id'])->first()->material_name;
+            $req_data['mat_name'] = DB::table('material')->get()->where('material_id', $req_data['material_id'])->first()->material_name;
         }
         foreach ($all_req_materials as &$req_data) {
-            $req_data['mat_name'] = DB::table('material_management__241022')->get()->where('material_id', $req_data['material_id'])->first()->material_name;
+            $req_data['mat_name'] = DB::table('material')->get()->where('material_id', $req_data['material_id'])->first()->material_name;
             $req_data['requester_name'] = DB::table('users')->get()->where('ic', $req_data['requester_id'])->first()->name;
         }
 
         $all_req_materials = RequestListController::reduce($all_req_materials);
         $req_materials = RequestListController::reduce($req_list);
-        // $r_id_count = array_count_values($req_list);
-        // echo var_dump($r_id_count);
+
         return view('Dashboard', compact('req_list', 'all_requests', 'req_materials', 'all_req_materials'));
     }
 
@@ -94,6 +93,7 @@ class RequestListController extends Controller
     public function store(Request $request)
     {
         $result = DB::table('request_lists');
+        
 
         if ($result->get()->isEmpty()) {
             $r_count = 1;
@@ -109,10 +109,19 @@ class RequestListController extends Controller
 
         $p_id = $request['proj_id'][0];
 
-        // $query = $request->get();
-        // echo count((array)$request['req_date']);
+        $proj_id = mb_substr($p_id, 0, 11);
+        $project = DB::table('pending_progress_update_lor')->get()->where('project_id',$proj_id);
+        print_r(var_dump($project->first()));
+        if($project->first() === null){
+            DB::table('pending_progress_update_lor')->insert(
+                [
+                    "project_name" => $p_id,
+                ]
+            );
+        }
 
         for ($i = 0; $i < count((array) $request['req_date']); $i++) {
+            $material = DB::table('material')->get()->where('material_id',$request['mat_id'][$i]);
             RequestList::create(
                 [
                     'request_id' => $r_id,
@@ -125,6 +134,12 @@ class RequestListController extends Controller
                     'SK_approval' => false,
                 ]
             );
+
+            if($request['cables'][$i] != ""){
+                print_r($request['cables'][$i]);
+            }
+
+
         }
 
         return redirect()->route('requestlist.index');
@@ -164,13 +179,11 @@ class RequestListController extends Controller
 
         for ($i = 0; $i < count((array) $request['approve']); $i++) {
             $req = RequestList::find($request['id'][$i]);
-            print_r($request['id'][$i]);
-            print_r($request['approve'][$i]);
             $req->SK_approval = $request['approve'][$i];
             $req->SK_approval_date = date("d/m/Y");
-            $material = DB::table('material_management__241022')->get()->where('material_id',$request['mat_id'][$i]);
+            $material = DB::table('material')->get()->where('material_id',$request['mat_id'][$i]);
             foreach($material as $material){
-                DB::update('update material_management__241022 set quantity = ? where material_id = ?',[$material->quantity -= $req->q_taken,$request['mat_id'][$i]]);
+                DB::update('update material set quantity = ? where material_id = ?',[$material->quantity -= $req->q_taken,$request['mat_id'][$i]]);
             }
 
             $req->save();

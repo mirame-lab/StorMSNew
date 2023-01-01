@@ -153,8 +153,12 @@ use Illuminate\Support\Facades\Auth; ?>
             @endif
         </div>
 
-        <!-- <div class="demo-inline-spacing mt-6"> 
-            <h5 style="color: white;" >What's new: </h5>
+        <!-- <div style="padding=auto;" class="versiontxt demo-inline-spacing mt-6 lg-2"> 
+            <h5 style="color: white;" >🔧Developer's Notes:</h5>
+            <ul >
+                <li style="color: white;">Please input the material description twice.</li>
+                <li style="color: white;">For storekeepers - There are two ways to reduce material number; either make a request or input a negative number when adding materials. </li>
+            </ul>
         </div> -->
     </div>
 </div>
